@@ -1,4 +1,4 @@
-export const CustomFilter = ({ filterLabel, id, value, onChange, options, className = "" }) => {
+export const Filter = ({ filterLabel, id, value, onChange, options, className = "" }) => {
   return (
     <>
     <label htmlFor={id} className="mr-2">Filter by {filterLabel}:</label>

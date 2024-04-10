@@ -1,13 +1,12 @@
+import "./App.css";
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import "./App.css";
-import { GET_CARDS } from "./graphql/queries";
-import Loader from "./components/loader";
+import Loader from "./components/Loader";
+import CardModal from "./components/CardModal";
+import Table from "./components/Table";
+import { Filter } from "./components/Filters";
 import { categoryFilters } from "./utils/constants";
-import { CustomFilter } from "./components/filters";
-import Sort from "./components/sort";
-import CardModal from "./components/cardModal";
-import Table from "./components/table";
+import { GET_CARDS } from "./graphql/queries";
 
 const CardTable = () => {
   const [order, setOrder] = useState("ASC");
@@ -51,7 +50,7 @@ const CardTable = () => {
     <div className="px-4 md:px-6 h-vh flex items-baseline">
       <div className="flex flex-col items-center w-full">
         <div className="my-4 ml-auto">
-          <CustomFilter
+          <Filter
             filterLabel="Category"
             id="category"
             value={category}

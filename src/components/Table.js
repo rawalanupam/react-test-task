@@ -1,5 +1,6 @@
 import React from "react";
-import Sort from "./sort";
+import Sort from "./Sort";
+import { tableHeaders } from "../utils/constants";
 
 const Table = ({
   data,
@@ -18,27 +19,14 @@ const Table = ({
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-200">
               <tr>
-                <th scope="col" className="px-6 py-3">
-                  <div className="flex items-center">
-                    Name
-                    <Sort handler={handleSort} />
-                  </div>
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  HP
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Stage
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Category
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Types
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Image
-                </th>
+                {tableHeaders.map((header) => (
+                  <th scope="col" className="px-6 py-3" key={header.key}>
+                    <div className="flex items-center">
+                      {header.label}
+                      {header.key === "name" && <Sort handler={handleSort} />}
+                    </div>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -49,26 +37,25 @@ const Table = ({
                   onClick={() => handleModal(card)}
                   data-testid="modal-id"
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">{card.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {card.hp || "N/A"}
-                  </td>
-                  <td className="px-6 py-4">{card.stage || "N/A"}</td>
-                  <td className="px-6 py-4">{card.category || "N/A"}</td>
-                  <td className="px-6 py-4">
-                    {card?.types?.join(", ") || "N/A"}
-                  </td>
-                  <td className="px-6 py-4">
-                    {card.image ? (
-                      <img
-                        src={`${card.image}/high.webp`}
-                        alt={card.name}
-                        className="w-12"
-                      />
-                    ) : (
-                      <span className="text-gray-400">Image not available</span>
-                    )}
-                  </td>
+                  {tableHeaders.map((header) => (
+                    <td className="px-6 py-4" key={header.key}>
+                      {card[header.key] ? (
+                        header.key === "types" ? (
+                          card.types.join(", ")
+                        ) : header.key === "image" ? (
+                          <img
+                            src={`${card.image}/high.webp`}
+                            alt={card.name}
+                            className="w-12"
+                          />
+                        ) : (
+                          card[header.key]
+                        )
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
