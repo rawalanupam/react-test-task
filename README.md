@@ -6,6 +6,10 @@ This project is a demo application made with React and GraphQL. It interacts wit
 
 In the project directory, you can run:
 
+### `npm install`
+
+Installs all the necessary dependencies for the project.
+
 ### `npm start`
 
 Runs the app in development mode.\
