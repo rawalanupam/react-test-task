@@ -7,6 +7,7 @@ import Table from "./components/Table";
 import { Filter } from "./components/Filters";
 import { categoryFilters } from "./utils/constants";
 import { GET_CARDS } from "./graphql/queries";
+import ErrorComponent from "./components/ErrorUI";
 
 const CardTable = () => {
   const [order, setOrder] = useState("ASC");
@@ -26,7 +27,7 @@ const CardTable = () => {
   };
 
   const handlePageChange = (newPage) => {
-    if (newPage < 1) return; // Prevent going to negative page numbers
+    if (newPage < 1) return;
     setPage(newPage);
   };
 
@@ -44,7 +45,7 @@ const CardTable = () => {
     setIsModalOpen(false);
   };
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <ErrorComponent />;
 
   return (
     <div className="px-4 md:px-6 h-vh flex items-baseline">
