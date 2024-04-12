@@ -4,6 +4,11 @@ export const categoryFilters = [
   {id: 3 , category : "Energy", label:"Energy" },
 ]
 
+export const rarityFilter = [
+  {id: 1 , rarity : "Common", label:"Common" },
+  {id: 2 , rarity : "Rare", label:"Rare" },
+]
+
 export const tableHeaders = [
   { label: "Name", key: "name" },
   { label: "HP", key: "hp" },

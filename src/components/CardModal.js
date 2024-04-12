@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { cardDetails } from "../utils/constants";
 import CardDetail from "./CardDetails";
+import HpChart from "./hpChart";
 
 const CardModal = ({ isOpen, onClose, card }) => {
   const modalRef = useRef(null);
@@ -20,7 +21,7 @@ const CardModal = ({ isOpen, onClose, card }) => {
         onClick={handleClose}
       ></div>
       <div
-        className="h-full sm:h-[95%] bg-white py-6 sm:rounded-lg max-w-xl w-full sm:mx-4 sm:my-16 relative"
+        className="h-[90vh] w-[80%] sm:w-[60%] bg-white py-6 sm:rounded-lg max-w-3xl w-full sm:mx-4 sm:my-16 relative overflow-auto"
         ref={modalRef}
       >
         <button
@@ -53,7 +54,7 @@ const CardModal = ({ isOpen, onClose, card }) => {
           )}
         </div>
         <h2 className="text-xl font-semibold my-4 text-center">{card.name}</h2>
-        <div className="px-4 flex flex-col items-center max-h-52 overflow-y-auto">
+        <div className="px-4 flex flex-col items-center">
           {cardDetails.map((detail) => {
             const { label, key, join } = detail;
             const value = join ? (card[key] || []).join(", ") : card[key];
@@ -61,6 +62,9 @@ const CardModal = ({ isOpen, onClose, card }) => {
               value && <CardDetail key={label} label={label} value={value} />
             );
           })}
+        </div>
+        <div>
+          {card.category === "Pokemon" && <HpChart data={card} />}
         </div>
       </div>
     </div>

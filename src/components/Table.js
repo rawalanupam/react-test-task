@@ -1,6 +1,7 @@
 import React from "react";
 import Sort from "./Sort";
 import { tableHeaders } from "../utils/constants";
+import NothingFound from "./NothingFound";
 
 const Table = ({
   data,
@@ -30,34 +31,42 @@ const Table = ({
               </tr>
             </thead>
             <tbody>
-              {data?.map((card) => (
-                <tr
-                  key={card.id}
-                  className="bg-white text-gray-500 border-b h-auto"
-                  onClick={() => handleModal(card)}
-                  data-testid="modal-id"
-                >
-                  {tableHeaders.map((header) => (
-                    <td className="px-6 py-4" key={header.key}>
-                      {card[header.key] ? (
-                        header.key === "types" ? (
-                          card.types.join(", ")
-                        ) : header.key === "image" ? (
-                          <img
-                            src={`${card.image}/high.webp`}
-                            alt={card.name}
-                            className="w-12"
-                          />
-                        ) : (
-                          card[header.key]
-                        )
-                      ) : (
-                        "N/A"
-                      )}
-                    </td>
-                  ))}
+              {data && data.length === 0 ? (
+                <tr>
+                  <td colSpan={tableHeaders.length} className="text-center py-4">
+                    <NothingFound />
+                  </td>
                 </tr>
-              ))}
+              ) : (
+                data?.map((card) => (
+                  <tr
+                    key={card.id}
+                    className="bg-white text-gray-500 border-b h-auto"
+                    onClick={() => handleModal(card)}
+                    data-testid="modal-id"
+                  >
+                    {tableHeaders.map((header) => (
+                      <td className="px-6 py-4" key={header.key}>
+                        {card[header.key] ? (
+                          header.key === "types" ? (
+                            card.types.join(", ")
+                          ) : header.key === "image" ? (
+                            <img
+                              src={`${card.image}/high.webp`}
+                              alt={card.name}
+                              className="w-12"
+                            />
+                          ) : (
+                            card[header.key]
+                          )
+                        ) : (
+                          "N/A"
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

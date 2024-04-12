@@ -1,13 +1,17 @@
-
-import { gql } from 'graphql-tag';
-
+import { gql } from "graphql-tag";
 
 export const GET_CARDS = gql`
-  query Cards($order: String!, $page: Int!, $itemsPerPage: Int!, $category: String) {
+  query Cards(
+    $order: String!
+    $page: Int!
+    $itemsPerPage: Int!
+    $category: String
+    $rarity: String
+  ) {
     cards(
-      sort: { field: "name", order: $order },
-      pagination: { itemsPerPage: $itemsPerPage, page: $page },
-      filters: { category: $category }
+      sort: { field: "name", order: $order }
+      pagination: { itemsPerPage: $itemsPerPage, page: $page }
+      filters: { category: $category, rarity: $rarity }
     ) {
       category
       description
